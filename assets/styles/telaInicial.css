@@ -10,6 +10,7 @@ body{
 }
 
 header{
+    /* display: none; */
     margin: calc(50vh - 240px) auto calc(50vh - 240px) auto;
     display: flex;
     justify-content: center;
@@ -62,7 +63,7 @@ header section button{
 	animation-name: fadeOutOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-out;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 }
 
 @keyframes fadeOutOpacity {

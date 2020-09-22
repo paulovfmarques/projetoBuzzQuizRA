@@ -62,8 +62,7 @@ function mudandoParaQuizzes(){
     var telaInicial = document.querySelector("body > header");
     var telaQuizzes = document.querySelector(".menu-quizzes");
 
-    telaInicial.classList.add("fade-out");
-    //telaInicial.style.display = "none";
+    telaInicial.classList.add("fade-out");    
 
     telaQuizzes.classList.add("fade-in");
     telaQuizzes.style.display = "block";
@@ -74,14 +73,28 @@ function carregandoQuizzes(){
     quizzes.then(processaQuizzes).catch(trataErroMenu)
 }
 
-function processaQuizzes(info){
-    console.log(info)
-    // fazer função que imprime na tela os quizzes já criados
-    
-    //fazer função que muda para a tela de criação de quiz
-}
-
 function trataErroMenu(){
     alert("Fatal Error: Falha no carregamento dos quizzes!");
     window.location.reload()
 }
+
+function processaQuizzes(info){
+    console.log(info)
+
+    // fazer função que imprime na tela os quizzes já criados    
+   
+}
+
+function mudandoParaCriacao(){
+    var menuQuizzes = document.querySelector(".menu-quizzes");
+    var criarQuiz = document.querySelector(".criar-quiz");
+    
+    menuQuizzes.classList.remove("fade-in");
+    menuQuizzes.classList.add("fade-out");
+    
+    criarQuiz.classList.add("fade-in");
+    criarQuiz.style.display = "block";
+
+    //menuQuizzes.style.display = "none";
+}
+

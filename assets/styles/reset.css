@@ -53,5 +53,7 @@ input{
     outline: none;
 }
 button{
+	background-color: inherit;
+	border: none;
 	outline: none;	
 }
