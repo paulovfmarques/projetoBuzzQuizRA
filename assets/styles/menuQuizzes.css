@@ -1,0 +1,98 @@
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.menu-quizzes{
+    display: none;    
+    z-index: 2;
+    position: absolute;
+    top:calc(15vh);
+    left: calc(15vw);
+    width: 70vw;
+    min-height: 70vh;
+    height: auto;
+    background-color: #8fcfd1;
+    border-radius: 25px;
+    box-shadow: 5px 7px 5px 0px rgba(0,0,0,0.75);
+    border: #f6ab6c solid 4px
+}
+.menu-quizzes > h1{
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    padding: 10px 10px;
+    background-color:#f6ab6c;
+    border-radius: 20px;
+    box-shadow: 2px 7px 5px 0px rgba(85, 85, 85, 0.75);
+}
+
+.container-quizzes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    margin-top: 50px;
+    padding: 0 20px;
+    width: 100%;
+    height: auto;        
+}
+.novo-quizz{
+    color: white;    
+    padding: 30px 15px 30px 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 150px;
+    width: 130px;
+    background-color: #f6ab6c;
+    border-radius: 20px;
+    box-shadow: 5px 7px 5px 0px rgba(48, 48, 48, 0.75);
+}
+.novo-quizz button{
+    height: auto;
+    width: auto;
+    border-radius: 50%;
+    background-color: inherit;
+	border: none;
+}
+.add-icon{
+    font-size: 30px;
+    border-radius: 50%;
+    color: #df5e88;
+    box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+}
+
+.quizz-adicionado{
+    color: #266f72;    
+    padding: 30px 15px 30px 15px;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 130px;
+    background-color: #f6efa6;
+    border-radius: 20px;
+    box-shadow: 5px 7px 5px 0px rgba(48, 48, 48, 0.75);
+}

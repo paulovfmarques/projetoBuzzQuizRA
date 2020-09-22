@@ -6,8 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Buzz Quizz RA</title>
         <link rel="stylesheet" href="./assets/styles/reset.css">
+        <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/style.css">
+        <link rel="stylesheet" href="./assets/styles/telaInicial.css">
+        <link rel="stylesheet" href="./assets/styles/menuQuizzes.css">
+        <link rel="stylesheet" href="./assets/styles/criarQuiz.css">
     </head>
 
     <body>
@@ -15,11 +19,32 @@
             <strong>BuzzQuizz</strong>
             <h2>O Quiz que você Quizzer</h2>
             <section>
-                <input class="campoEmail" type="email" placeholder="E-mail">
-                <input class="campoSenha" type="password" placeholder="Senha">
+                <input class="campoEmail" type="email" onkeypress="return processarEnter(event)" placeholder="E-mail">
+                <input class="campoSenha" type="password" onkeypress="return processarEnter(event)" placeholder="Senha">
                 <button class="entrar" onclick="conferirCamposLogin()">Entrar</button>
             </section>
-        </header> 
+        </header>
+        
+        <section class="menu-quizzes">
+            <h1><strong>BuzzQuizz</strong></h1>
+            <ul class="container-quizzes">
+                <li class="novo-quizz">
+                    <strong>Novo<br>Quizz</strong>
+                    <button><ion-icon class="add-icon" name="add-circle"></ion-icon></button>
+                </li>
+                <li class="quizz-adicionado">
+                    <p>O quão PotterHead você é?</p>
+                </li>
+                <li class="quizz-adicionado">
+                    <p>O quão PotterHead você é?</p>
+                </li>
+                <li class="quizz-adicionado">
+                    <p>O quão PotterHead você é?</p>
+                </li>
+            </ul>
+
+        </section>
+        
         
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="./assets/javascript/script.js"></script>    
