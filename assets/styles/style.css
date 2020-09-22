@@ -1,0 +1,47 @@
+body{
+    width: 100%;
+    height: auto;
+    font-family: 'Roboto', sans-serif;    
+    background: repeating-linear-gradient(
+        45deg,
+        #f6efa6,
+        #f6efa6 30px,
+        #df5e88 10px,
+        #df5e88 50px
+        );
+}
+
+header{
+    margin: calc(50vh - 240px) auto calc(50vh - 240px) auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+header strong{
+    font-size: 35px;
+}
+header h2{
+    font-size: 25px;    
+}
+header section{
+    width: 250px;
+    height: 180px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    background-color: #8fcfd1;
+    border-radius: 20px;
+}
+header section input{
+    height: 40px;
+    border-radius: 5px;
+}
+
+header section button{
+    height: 40px;
+    width: 120px;
+    border-radius: 10px;
+    background-color: #f6ab6c;
+}
