@@ -26,22 +26,22 @@
         </header>
         
         <section class="menu-quizzes">
+
             <h1><strong>BuzzQuizz</strong></h1>
+
             <ul class="container-quizzes">
+
                 <li class="novo-quizz">
                     <strong>Novo<br>Quizz</strong>
                     <button><ion-icon class="add-icon" onclick="mudandoParaCriacao()" name="add-circle"></ion-icon></button>
                 </li>
+
                 <li class="quizz-adicionado">
                     <p>O quão PotterHead você é?</p>
                 </li>
-                <li class="quizz-adicionado">
-                    <p>O quão PotterHead você é?</p>
-                </li>
-                <li class="quizz-adicionado">
-                    <p>O quão PotterHead você é?</p>
-                </li>
+                
             </ul>
+
         </section>
 
         <section class="criar-quiz">
@@ -49,41 +49,22 @@
             <article class="container-criandoQuiz">
 
                 <input class="inputTitulo" type="text" required placeholder="Digite o título do seu Quiz">
+                
+                <div class="container-pergunta"></div>
 
-                <div class="container-perguntas">
-                    <h1>Pergunta 1</h1>
-                    <input class="inputPergunta" type="text" placeholder="Digite a pergunta">
-                    <div class="certo-errado">
-                        <input class="certo" type="text" placeholder="Resposta correta">
-                        <input class="certo" type="text" placeholder="Link correto"> 
-                        <input class="errado" type="text" placeholder="Errada 1">
-                        <input class="errado" type="text" placeholder="Link errado 1">
-                        <input class="errado" type="text" placeholder="Errada 2">
-                        <input class="errado" type="text" placeholder="Link errado 2">
-                        <input class="errado" type="text" placeholder="Errada 3">
-                        <input class="errado" type="text" placeholder="Link errado 3">
-                    </div>
-                </div>
-
-                <div class="container-perguntas">
-                    <h1>Pergunta 2</h1>
-                    <input class="inputPergunta" type="text" placeholder="Digite a pergunta">
-                    <div class="certo-errado">
-                        <input class="certo" type="text" placeholder="Resposta correta">
-                        <input class="certo" type="text" placeholder="Link correto"> 
-                        <input class="errado" type="text" placeholder="Errada 1">
-                        <input class="errado" type="text" placeholder="Link errado 1">
-                        <input class="errado" type="text" placeholder="Errada 2">
-                        <input class="errado" type="text" placeholder="Link errado 2">
-                        <input class="errado" type="text" placeholder="Errada 3">
-                        <input class="errado" type="text" placeholder="Link errado 3">
-                    </div>
-                </div>
-
-
-                <button><ion-icon class="adicionar-pergunta" name="add-circle"></ion-icon></button>
+                <ion-icon class="adicionar-pergunta" onclick="renderizaPerguntas()" name="add-circle"></ion-icon>
 
             </article>
+
+            <article class="container-criandoNiveis">
+
+                <div class="container-nivel"></div>
+
+                <ion-icon class="adicionar-nivel" onclick="renderizaNiveis()" name="add-circle"></ion-icon>
+
+            </article>
+
+            <footer onclick="voltandoMenu()"><strong>Publicar</strong></footer>
 
         </section>
         

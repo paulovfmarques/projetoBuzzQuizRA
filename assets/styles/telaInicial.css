@@ -15,9 +15,12 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: column;    
 }
 header strong{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
     background-color: #df5e88;
     padding: 1px 10px 1px 10px;
     border-radius: 10px;
