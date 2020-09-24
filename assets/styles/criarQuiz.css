@@ -138,7 +138,7 @@
     flex-grow: 1;
 }
 
-footer{
+.publicar{
     margin: 30px 0 15px 0;
     display: flex;
     justify-content: center;

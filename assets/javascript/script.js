@@ -100,8 +100,9 @@ function processaQuizzes(info){
 
         let li = document.createElement("li");
         li.classList.add("quizz-adicionado");
-        li.setAttribute("onclick", "abreQuiz()")
-        li.innerHTML = `<p>${dados[i].title}</p>`
+        li.setAttribute("onclick", "abreQuiz(this)");
+        li.setAttribute("id", dados[i].id);
+        li.innerHTML = `<p>${dados[i].title}</p>`;
 
         quizNode.appendChild(li);
     }
@@ -307,3 +308,27 @@ function trataErroEnvio(err){
     alert("Preencha corretamente os dados");
 }
 
+var idAberto = "";
+
+function abreQuiz(elem){
+
+    idAberto = elem.getAttribute("id")    
+
+    var abreQuiz = axios.get(urlGetQuiz, {headers : {"User-token" : token}});
+    abreQuiz.then(renderQuizSelecionado).catch(trataErroMenu);
+}
+
+function renderQuizSelecionado(info){
+
+    var dados = info.data;
+    
+    for(var i = 0; i < dados.length; i++){
+
+        if(dados[i].id == idAberto){
+
+            //renderizar o quiz selecionado
+
+        }
+    }
+
+}
