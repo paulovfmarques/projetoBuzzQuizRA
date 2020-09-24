@@ -1,6 +1,10 @@
 let dados = {email : "", password : ""}
 let token = "";
-let qtdPerguntas = 1;
+var countP = 0;
+var countN = 0;
+let pergunta = [];
+let nivel = [];
+let quiz = {};
 const urlPostUsuario = "https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/users";
 const urlPostQuiz = "https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes";
 const urlGetQuiz = "https://mock-api.bootcamp.respondeai.com.br/api/v1/buzzquizz/quizzes";
@@ -49,7 +53,8 @@ function processaCadastro(resposta){
     token = resposta.data.token;    
 
     mudandoParaQuizzes();
-    setTimeout(carregandoQuizzes, 1000);
+    carregandoQuizzes();
+   // setTimeout(carregandoQuizzes, 250);
 }
 
 function trataErroCadastro(){
@@ -80,7 +85,26 @@ function trataErroMenu(){
 
 function processaQuizzes(info){   
 
-    // fazer função que imprime na tela os quizzes já criados    
+    var dados = info.data;
+    var quizNode = document.querySelector(".container-quizzes");
+    
+    quizNode.innerHTML = "";
+
+    let liNovo = document.createElement("li");
+    liNovo.classList.add("novo-quizz");
+    liNovo.innerHTML = "<strong>Novo<br>Quizz</strong>";
+    liNovo.innerHTML += "<button><ion-icon class='add-icon' onclick='mudandoParaCriacao()' name='add-circle'></ion-icon></button>";
+    quizNode.appendChild(liNovo);
+
+    for(var i = 0; i < dados.length; i++){
+
+        let li = document.createElement("li");
+        li.classList.add("quizz-adicionado");
+        li.setAttribute("onclick", "abreQuiz()")
+        li.innerHTML = `<p>${dados[i].title}</p>`
+
+        quizNode.appendChild(li);
+    }
    
 }
 
@@ -100,13 +124,10 @@ function mudandoParaCriacao(){
     
 }
 
-var countP = 0;
-
 function renderizaPerguntas(){
 
     countP++; 
 
-    // while(qtdPerguntas > 0){}
     let div = document.createElement("div");
     let perguntaNode = document.querySelector(".container-pergunta");
     let ID = `p${countP}`;
@@ -132,8 +153,6 @@ function renderizaPerguntas(){
     //console.log(countP)
 }
 
-var countN = 0;
-
 function renderizaNiveis(){
 
     countN++
@@ -158,14 +177,14 @@ function renderizaNiveis(){
     
 }
 
-function voltandoMenu(){
+function voltandoMenu(info){      
 
-    salvaPerguntaQuiz();
+    console.log(info.data)
 
     var menuQuizzes = document.querySelector(".menu-quizzes");
     var criarQuiz = document.querySelector(".criar-quiz");
 
-    // esse bloco deve ser executado depois 
+    //deve ser executado depois 
     //de receber OK do server no envio do Quiz
     let perguntaNode = document.querySelector(".container-pergunta");
     let nivelNode = document.querySelector(".container-nivel");    
@@ -173,6 +192,9 @@ function voltandoMenu(){
     nivelNode.innerHTML = "";
     countN = 0;
     countP = 0;
+    pergunta = [];
+    nivel = [];
+    quiz = {};
     //------------------------------------------
 
     menuQuizzes.classList.remove("fade-out");
@@ -181,27 +203,107 @@ function voltandoMenu(){
     criarQuiz.classList.remove("fade-in");
     criarQuiz.classList.add("fade-out");
     criarQuiz.style.display = "none";
-}
-
-// let pergunta = {
-//     tituloPergunta : "",
-//     Respostas : Resposta[]
-// }
-
-let Resposta = {
-    resposta : "",
-    linkResposta : "",
-    flag : ""
+    
+    carregandoQuizzes();
 }
 
 function salvaPerguntaQuiz(){
     
     for(var i = 1; i <= countP; i++){
+
+        let resp = { 
+            "resposta" : "",
+            "linkResposta" : "",
+            "flag" : false };
         
+        let Resposta = [];
+
+        let perg = {
+            "tituloPergunta" : "",
+            "Respostas" : Resposta};    
+
         var ID = `#p${i}`;
         var elemento = document.querySelector(ID);
+        //Pega todos os inputs de cada bloco de pergunta
         var inputs = elemento.querySelectorAll(".certo-errado input");
+        var inputPergunta = elemento.querySelector(".inputPergunta").value;
 
-       
+        for( var j = 0; j < 4; j++){
+
+            let resp = { 
+                "resposta" : "",
+                "linkResposta" : "",
+                "flag" : false };
+
+            if(j == 0){
+                resp.flag = true;
+            }
+
+            resp.resposta = inputs[(2 * j)].value;
+            resp.linkResposta = inputs[((2 * j) + 1)].value            
+
+            Resposta.push(resp);
+
+        }
+
+        perg.tituloPergunta = inputPergunta;
+
+        pergunta.push(perg);
     }
 }
+
+function salvaNivelQuiz(){
+
+    for(var i = 1; i <= countN; i++){
+
+        let niv = {
+            "rangeMin" : "",
+            "rangeMax" : "",
+            "tituloNivel" : "",
+            "linkNivel" : "",
+            "desc" : ""
+        };
+
+        var ID = `#n${i}`;
+        var elemento = document.querySelector(ID);
+        var inputs = elemento.querySelectorAll("input");        
+
+        niv.rangeMax = inputs[0].value;
+        niv.rangeMax = inputs[1].value;
+        niv.tituloNivel = inputs[2].value;
+        niv.linkNivel = inputs[3].value;
+        niv.desc = inputs[4].value;
+
+        nivel.push(niv)
+        
+    }
+}
+
+function montaQuiz(){
+
+    var inputTitulo = document.querySelector(".inputTitulo").value;
+
+    quiz = {
+        "title" : inputTitulo,
+        "data" : {pergunta, nivel}
+    }
+
+    inputTitulo = "";
+
+}
+
+function enviaQuizzServidor(){
+
+    salvaPerguntaQuiz();
+    salvaNivelQuiz();  
+    montaQuiz();
+
+    var enviandoQuiz = axios.post(urlPostQuiz, quiz, {headers : {"User-token" : token}});
+    enviandoQuiz.then(voltandoMenu).catch(trataErroEnvio);
+
+}
+
+function trataErroEnvio(err){
+    alert("Preencha corretamente os dados");
+}
+
