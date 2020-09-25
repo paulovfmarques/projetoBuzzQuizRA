@@ -315,8 +315,10 @@ function abreQuiz(elem){
     idAberto = elem.getAttribute("id")    
 
     var abreQuiz = axios.get(urlGetQuiz, {headers : {"User-token" : token}});
-    abreQuiz.then(renderQuizSelecionado).catch(trataErroMenu);
+    abreQuiz.then(renderQuizSelecionado);
 }
+
+let dataQuiz = {};
 
 function renderQuizSelecionado(info){
 
@@ -324,11 +326,110 @@ function renderQuizSelecionado(info){
     
     for(var i = 0; i < dados.length; i++){
 
-        if(dados[i].id == idAberto){
-
-            //renderizar o quiz selecionado
-
+        if(dados[i].id == idAberto){            
+            dataQuiz = dados[i];
+            mudandoParaSelecionado()           
+            renderQuiz()
         }
     }
+}
+
+function mudandoParaSelecionado(){
+
+    var menuQuizzes = document.querySelector(".menu-quizzes");
+    var inicio = document.querySelector("body > header");
+    var quiz = document.querySelector(".pagina-quiz")
+
+    inicio.style.display = "none"
+
+    menuQuizzes.classList.remove("fade-in");
+    menuQuizzes.classList.add("fade-out");
+
+    quiz.style.display = "flex"
+    quiz.classList.add("fade-in");
 
 }
+
+var questAtual = 0
+
+function renderQuiz(){
+
+    questAtual = 0;
+
+    let pergunta = dataQuiz.data.pergunta;
+
+    let paginaQuiz = document.querySelector(".pagina-quiz");
+
+    let h2 = document.createElement("h2");
+    h2.innerText = dataQuiz.title
+    paginaQuiz.appendChild(h2);
+
+    let boxPergunta = document.createElement("div");
+    boxPergunta.classList.add("box-perguntas");
+    paginaQuiz.appendChild(boxPergunta)    
+
+    let div = document.createElement("div");
+    div.classList.add("pergunta-exibida");
+    div.innerHTML = `<h1><strong>${pergunta[questAtual].tituloPergunta}</strong></h1>`;
+    div.innerHTML += `<div class="box-respostas">
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[0].flag}" ><img src="${pergunta[questAtual].Respostas[0].linkResposta}"><footer>${pergunta[questAtual].Respostas[0].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[1].flag}"><img src="${pergunta[questAtual].Respostas[1].linkResposta}"><footer>${pergunta[questAtual].Respostas[1].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[2].flag}"><img src="${pergunta[questAtual].Respostas[2].linkResposta}"><footer>${pergunta[questAtual].Respostas[2].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[3].flag}"><img src="${pergunta[questAtual].Respostas[3].linkResposta}"><footer>${pergunta[questAtual].Respostas[3].resposta}</footer></div>
+    </div>`
+    boxPergunta.appendChild(div)    
+}
+
+var countResposta = 0
+
+function respostaSelecionada(elem){
+
+    let qtdPergunta = dataQuiz.data.pergunta.length;
+
+    let selecionado = elem.getAttribute("flag");
+    let corResposta = elem.querySelector("footer");
+    let divResposta = document.querySelectorAll(".box-respostas > div");
+    
+
+    if(selecionado == "true"){ 
+        countResposta++;
+        corResposta.style.backgroundColor = "lightgreen";
+        for(var i = 0; i < divResposta.length; i++){
+            divResposta[i].removeAttribute("onclick");
+        }
+    } else {
+        corResposta.style.backgroundColor = "#dd90a9"
+        for(var i = 0; i < divResposta.length; i++){
+            divResposta[i].removeAttribute("onclick");
+        }
+    }
+    
+    if((qtdPergunta - 1) > questAtual){
+        questAtual++
+        setTimeout(renderProximaPergunta, 2000)
+    } else { 
+        //setTimeout( função que leva pro resultado
+    }    
+}
+
+function renderProximaPergunta(){
+    
+    let pergunta = dataQuiz.data.pergunta;           
+    
+    let boxPergunta = document.querySelector(".box-perguntas");
+    boxPergunta.innerHTML = ""
+
+    let div = document.createElement("div");
+    div.classList.add("pergunta-exibida");
+    div.innerHTML = `<h1><strong>${pergunta[questAtual].tituloPergunta}</strong></h1>`;
+    div.innerHTML += `<div class="box-respostas">
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[0].flag}" ><img src="${pergunta[questAtual].Respostas[0].linkResposta}"><footer>${pergunta[questAtual].Respostas[0].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[1].flag}"><img src="${pergunta[questAtual].Respostas[1].linkResposta}"><footer>${pergunta[questAtual].Respostas[1].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[2].flag}"><img src="${pergunta[questAtual].Respostas[2].linkResposta}"><footer>${pergunta[questAtual].Respostas[2].resposta}</footer></div>
+    <div onclick = "respostaSelecionada(this)" flag = "${pergunta[questAtual].Respostas[3].flag}"><img src="${pergunta[questAtual].Respostas[3].linkResposta}"><footer>${pergunta[questAtual].Respostas[3].resposta}</footer></div>
+    </div>`
+    boxPergunta.appendChild(div)        
+    
+}
+
+function mudandoParaResultado(){}
