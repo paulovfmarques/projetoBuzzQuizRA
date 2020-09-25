@@ -408,7 +408,7 @@ function respostaSelecionada(elem){
         questAtual++
         setTimeout(renderProximaPergunta, 2000)
     } else { 
-        //setTimeout( função que leva pro resultado
+        setTimeout(mudandoParaResultado, 2000)
     }    
 }
 
@@ -432,4 +432,61 @@ function renderProximaPergunta(){
     
 }
 
-function mudandoParaResultado(){}
+function mudandoParaResultado(){
+
+    let quiz = document.querySelector(".pagina-quiz");
+    let resultado = document.querySelector(".tela-resultado");
+
+    quiz.classList.remove("fade-in");
+    quiz.classList.add("fade-out");
+    quiz.style.display = "none"
+
+    resultado.classList.add("fade-in");
+    resultado.style.display = "flex"
+
+    renderResultado()
+    
+
+}
+
+
+function renderResultado(){
+    
+    let qtdPergunta = dataQuiz.data.pergunta.length;
+    let dadosNivel = dataQuiz.data.nivel;
+    var taxaAcerto = Math.floor((countResposta / qtdPergunta) * 100);
+    let containerResultado = document.querySelector(".tela-resultado");
+
+    for(var i = 0; i < dadosNivel.length; i++){
+
+        var min = dadosNivel[i].rangeMin;
+        var max =  dadosNivel[i].rangeMax;
+
+        if((taxaAcerto >= min) && (taxaAcerto <= max)){
+
+            let h2 = document.createElement("h2")
+            h2.innerText = dataQuiz.title;
+            containerResultado.appendChild(h2);
+
+            let div = document.createElement("div");
+            div.classList.add("resultado");
+            div.innerHTML = `<p>Voce acertou ${countResposta} de ${qtdPergunta} pergunta(s)</p>`;
+            div.innerHTML += `Score: ${taxaAcerto}%`;
+            containerResultado.appendChild(div);
+
+            let art = document.createElement("article");
+            art.innerHTML = `<div class="descricao">
+                                    <strong>${dadosNivel[i].tituloNivel}</strong>
+                                    <p>${dadosNivel[i].desc}</p>
+                                </div>
+                                <div class="imagem"><img src="${dadosNivel[i].linkNivel}"></div>`
+            containerResultado.appendChild(art);
+
+            return;
+        }
+    }
+}
+
+function retorna(){
+    window.location.reload();
+}

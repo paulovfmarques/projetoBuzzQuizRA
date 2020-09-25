@@ -10,8 +10,8 @@ body{
 }
 
 header{
-    /* display: none;     */
-    /* opacity: 0; */
+    /* display: none; */
+    /* opacity: 0;*/
     z-index: 3;
     margin: calc(50vh - 240px) auto calc(50vh - 240px) auto;
     display: flex;
